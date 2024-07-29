@@ -1,10 +1,10 @@
-import { View, Text } from 'react-native';
-import { Button } from 'react-native-paper';
+import { View } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 const HomeScreen = () => {
   return (
     <View>
       <Text>HomeScreen</Text>
-      <Button>Press me</Button>
+      <Button mode='contained'>Press me</Button>
     </View>
   );
 };
