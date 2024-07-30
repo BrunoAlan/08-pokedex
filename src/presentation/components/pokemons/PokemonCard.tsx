@@ -1,6 +1,8 @@
 import { Image, StyleSheet, View } from 'react-native';
 import { Pokemon } from '../../../domain/entities/pokemon';
 import { Card, Text } from 'react-native-paper';
+import { FadeInImage } from '../ui/AnimatedImage';
+import { Link } from 'expo-router';
 
 interface Props {
   pokemon: Pokemon;
@@ -8,25 +10,31 @@ interface Props {
 
 const PokemonCard = ({ pokemon }: Props) => {
   return (
-    <Card style={styles.cardContainer}>
-      <Text style={styles.name} variant='bodyLarge' lineBreakMode='middle'>
-        {pokemon.name}
-        {'\n#' + pokemon.id}
-      </Text>
-      {/* Pokeball background image */}
-      <View style={styles.pokeballContainer}>
-        <Image
-          source={require('../../../assets/pokeball-light.png')}
-          style={styles.pokeball}
-        />
-      </View>
+    <Link
+      style={{ ...styles.cardContainer, backgroundColor: pokemon.color }}
+      asChild
+      href={`/${pokemon.id}`}
+    >
+      <Card>
+        <Text style={styles.name} variant='bodyLarge' lineBreakMode='middle'>
+          {pokemon.name}
+          {'\n#' + pokemon.id}
+        </Text>
+        {/* Pokeball background image */}
+        <View style={styles.pokeballContainer}>
+          <Image
+            source={require('../../../assets/pokeball-light.png')}
+            style={styles.pokeball}
+          />
+        </View>
 
-      {/* Pokemon image */}
-      <Image source={{ uri: pokemon.avatar }} style={styles.pokemonImage} />
+        {/* Pokemon image */}
+        <FadeInImage uri={pokemon.avatar} style={styles.pokemonImage} />
 
-      {/* Types */}
-      <Text style={[styles.name, { marginTop: 35 }]}>{pokemon.types[0]}</Text>
-    </Card>
+        {/* Types */}
+        <Text style={[styles.name, { marginTop: 35 }]}>{pokemon.types[0]}</Text>
+      </Card>
+    </Link>
   );
 };
 export default PokemonCard;

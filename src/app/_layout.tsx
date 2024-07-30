@@ -15,7 +15,7 @@ export default function RootLayout() {
           }}
         >
           <Stack.Screen name='index' />
-          <Stack.Screen name='pokemon' />
+          <Stack.Screen name='[id]' />
           <Stack.Screen name='search' />
         </Stack>
       </ThemeContextProvider>
