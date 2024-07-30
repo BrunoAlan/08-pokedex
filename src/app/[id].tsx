@@ -8,14 +8,14 @@ const Pokemon = () => {
   // get query params
 
   const { id: pokemonId } = useLocalSearchParams();
-  const { data: pokemon, isLoading } = useQuery({
-    queryKey: ['pokemons', pokemonId],
+  const { data: pokemon } = useQuery({
+    queryKey: ['pokemon', pokemonId],
     queryFn: () => getPokemonById(pokemonId as string),
     staleTime: 1000 * 60 * 60, // 1 hour
   });
 
-  if (isLoading) {
-    return <FullScreenLoader color={pokemon?.color} />;
+  if (!pokemon) {
+    return <FullScreenLoader />;
   }
 
   return <PokemonScreen pokemon={pokemon} />;
