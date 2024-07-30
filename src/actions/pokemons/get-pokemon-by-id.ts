@@ -3,7 +3,7 @@ import { Pokemon } from '@/src/domain/entities/pokemon';
 import { PokeAPIPokemon } from '@/src/infrastructure/interfaces/pokeapi.interfaces';
 import { PokemonMapper } from '@/src/infrastructure/mappers/pokemon.mapper';
 
-export const getPokemonById = async (id: string): Promise<Pokemon> => {
+export const getPokemonById = async (id: number): Promise<Pokemon> => {
   try {
     const { data } = await pokeApi.get<PokeAPIPokemon>(`/pokemon/${id}`);
     const pokemon = await PokemonMapper.pokeApiPokemonToEntity(data);

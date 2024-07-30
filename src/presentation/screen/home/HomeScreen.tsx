@@ -2,15 +2,18 @@ import { getPokemons } from '@/src/actions/pokemons';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import PokeballBg from '../../components/ui/PokeballBg';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { FAB, Text, useTheme } from 'react-native-paper';
 import { globalTheme } from '@/src/config/theme/global-theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PokemonCard from '../../components/pokemons/PokemonCard';
 import FullScreenLoader from '../../components/ui/FullScreenLoader';
+import { useRouter } from 'expo-router';
+
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
   const queryClient = useQueryClient();
-  const { dark } = useTheme();
+  const { dark, colors } = useTheme();
+  const router = useRouter();
   // just for one http request
   // const { data: pokemons = [], isLoading } = useQuery({
   //   queryKey: ['pokemons'],
@@ -58,6 +61,13 @@ const HomeScreen = () => {
         onEndReachedThreshold={0.6}
         onEndReached={() => fetchNextPage()}
       />
+      <FAB
+        style={{ ...styles.fab, backgroundColor: colors.primary }}
+        mode='elevated'
+        color={colors.surface}
+        icon={'magnify'}
+        onPress={() => router.push('/search')}
+      />
     </View>
   );
 };
@@ -68,5 +78,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -100,
     right: -100,
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 20,
   },
 });
