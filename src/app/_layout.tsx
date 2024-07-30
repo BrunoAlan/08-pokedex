@@ -1,14 +1,24 @@
 import { Stack } from 'expo-router';
 import { ThemeContextProvider } from '../presentation/context/ThemeContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+// Create a client
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   return (
-    <ThemeContextProvider>
-      <Stack initialRouteName='Pokemon'>
-        <Stack.Screen name='index' />
-        <Stack.Screen name='pokemon' />
-        <Stack.Screen name='search' />
-      </Stack>
-    </ThemeContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeContextProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name='index' />
+          <Stack.Screen name='pokemon' />
+          <Stack.Screen name='search' />
+        </Stack>
+      </ThemeContextProvider>
+    </QueryClientProvider>
   );
 }
