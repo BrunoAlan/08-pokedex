@@ -36,6 +36,7 @@ const SearchScreen = () => {
     return pokemonNameList.filter((pokemon) =>
       pokemon.name.includes(term.toLowerCase())
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   const { data: pokemons, isLoading: isLoadingPokemons } = useQuery({
