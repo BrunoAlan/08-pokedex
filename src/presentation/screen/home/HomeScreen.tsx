@@ -6,6 +6,7 @@ import { Text, useTheme } from 'react-native-paper';
 import { globalTheme } from '@/src/config/theme/global-theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PokemonCard from '../../components/pokemons/PokemonCard';
+import FullScreenLoader from '../../components/ui/FullScreenLoader';
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
   const queryClient = useQueryClient();
@@ -17,7 +18,7 @@ const HomeScreen = () => {
   //   staleTime: 1000 * 60 * 5, // 5 minutes
   // });
 
-  const { data, fetchNextPage } = useInfiniteQuery({
+  const { data, isLoading, fetchNextPage } = useInfiniteQuery({
     queryKey: ['pokemons', 'infinite'],
     initialPageParam: 0,
     queryFn: async (params) => {
@@ -31,6 +32,10 @@ const HomeScreen = () => {
     getNextPageParam: (lastPage, pages) => pages.length,
     staleTime: 1000 * 60 * 60, // 1 hour
   });
+
+  if (isLoading) {
+    return <FullScreenLoader />;
+  }
 
   return (
     <View style={globalTheme.globalMargin}>
